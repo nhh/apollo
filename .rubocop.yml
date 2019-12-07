@@ -1,0 +1,17 @@
+AllCops:
+  Exclude:
+  - 'vendor/**/*'
+  - 'spec/**/*'
+  - 'tmp/**/*'
+  - 'migrations/**/*'
+  - 'app.rb'
+  - 'Gemfile'
+  - 'config/**/*'
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+  - tests/**/*
+Layout/EndOfLine:
+  EnforcedStyle: lf

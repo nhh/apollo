@@ -1,0 +1,15 @@
+<div class="is-centered">
+  <p>
+    <div class="image" style="width: 126px;">
+      <img src="https://bulma.io/images/bulma-logo.png">
+    </div>
+  </p>
+</div>
+<hr>
+<aside class="menu">
+  <ul class="menu-list">
+    <% Apollo::Helpers::AdminNavigation::ITEMS.each do |item| %>
+      <li><a href="<%= item[:href] %>"><%= item[:title] %></a></li>
+    <% end %>
+  </ul>
+</aside>

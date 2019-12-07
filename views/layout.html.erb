@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin</title>
+  <link rel="stylesheet" href="/css/bulma.min.css">
+</head>
+<body>
+  <section class="section">
+    <div class="columns">
+      <div class="column is-2">
+        <%= erb :'navigation.html' %>
+      </div>
+      <div class="column is-9">
+        <%= yield %>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
