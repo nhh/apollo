@@ -15,15 +15,24 @@ module Apollo
       end
 
       post '/admin/pages' do
-        post = Apollo::Models::Page.new
-        post.name = params.dig('post', 'name')
-        post.content = params.dig('post', 'content')
-        post.slug = params.dig('post', 'name').downcase.gsub(' ', '-')
-        post.category = 'NEW'
-        post.draft = params.dig('post', 'draft') == 'true'
+        page = Apollo::Models::Page.new
 
-        if post.valid?
-          post.save
+        translation = Apollo::Models::Translation.new
+
+
+        translation.language = I18n.locale
+        translation.content = params.dig('page', 'content')
+
+        page.translations << translation
+
+        page.name = params.dig('page', 'name')
+        page.slug = params.dig('page', 'name').downcase.gsub(' ', '-')
+
+        page.categories << 'NEW'
+        page.draft = params.dig('page', 'draft') == 'true'
+
+        if page.valid?
+          page.save
           flash[:success] = { message: '' }
           redirect '/admin/pages'
         end
