@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin</title>
-  <link rel="stylesheet" href="/css/bulma.min.css">
-</head>
-<body>
-  <section class="section">
-    <div class="columns">
-      <div class="column is-2">
-        <%= erb :'navigation.html' %>
+  <head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/bulma.min.css">
+  </head>
+  <body>
+
+    <section class="section">
+      <div class="columns">
+        <div class="column is-narrow">
+          <%= erb :'navigation.html' %>
+        </div>
+        <div class="column">
+          <%= yield %>
+        </div>
       </div>
-      <div class="column is-9">
-        <%= yield %>
-      </div>
-    </div>
-  </section>
-</body>
+    </section>
+
+    <!-- Todo this is how we embedd our components. Every Component is its own Vue App -->
+    <script async type="module" src="/js/components/HeaderComponent.js"></script>
+    <script async type="module" src="/js/components/Header2Component.js"></script>
+    <!-- Todo this is how we embedd our components. Every Component is its own Vue App -->
+
+    <!-- Fallback -->
+    <script nomodule>
+        document.getElementById("app").innerHTML = "Your browser doesn't support JavaScript modules :(";
+    </script>
+    <!-- Fallback -->
+
+  </body>
 </html>

@@ -1,15 +1,32 @@
-<div class="is-centered">
-  <p>
-    <div class="image" style="width: 126px;">
-      <img src="https://bulma.io/images/bulma-logo.png">
-    </div>
-  </p>
-</div>
-<hr>
 <aside class="menu">
   <ul class="menu-list">
-    <% Apollo::Helpers::AdminNavigation::ITEMS.each do |item| %>
-      <li><a href="<%= item[:href] %>"><%= item[:title] %></a></li>
+    <% Apollo::Helpers::AdminNavigation::ITEMS.group_by {|item| item[:category]}.each do |key, items| %>
+
+      <p class="menu-label">
+        <b><%= key %></b>
+      </p>
+
+      <% items.each do |item| %>
+        <li>
+          <a class="<%= request.path_info.include?(item[:href]) ? 'is-active' : '' %>" href="<%= item[:href] %>"><%= item[:title] %></a>
+
+          <% if item[:children].size > 0 %>
+            <ul>
+
+              <% item[:children].each do |child| %>
+                <li>
+                  <a href="<%= child[:href] %>"><%= child[:title] %></a>
+                </li>
+              <% end %>
+
+            </ul>
+          <% end %>
+
+
+        </li>
+      <% end %>
+
+
     <% end %>
   </ul>
 </aside>

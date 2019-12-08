@@ -34,7 +34,9 @@ Apollo::ThemeLoader.load_themes
 use Apollo::Controllers::AdminThemeController
 use Apollo::Controllers::AdminPageController
 use Apollo::Controllers::AdminPostController
+use Apollo::Controllers::AdminUserController
 use Apollo::Controllers::AdminPluginController
+use Apollo::Controllers::AdminWidgetController
 use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 

@@ -1,0 +1,21 @@
+<nav class="level">
+  <div class="level-left">
+
+  </div>
+  <div class="level-right">
+    <div class="level-item">
+      <a class="button is-success" href="/admin/users/new">Neuen User erstellen</a>
+    </div>
+  </div>
+</nav>
+
+<div class="columns is-multiline">
+  <% @users.each do |user| %>
+    <div class="column">
+      <div class="box">
+        <%= user.name %>
+        <%= user.content %>
+      </div>
+    </div>
+  <% end %>
+</div>

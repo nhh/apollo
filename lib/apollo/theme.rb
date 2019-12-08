@@ -12,5 +12,9 @@ module Apollo
       []
     end
 
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < Apollo::Theme }.map { |theme| theme.new }
+    end
+
   end
 end
