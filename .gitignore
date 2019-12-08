@@ -2,7 +2,6 @@
 vendor/
 .idea/
 data/
-themes/
-plugins/
+addons/
 widgets/
 .DS_Store

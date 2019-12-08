@@ -2,12 +2,12 @@
 
 module Apollo
   module Controllers
-    class ThemeController < Sinatra::Base
+    class AddonController < Sinatra::Base
       register ::Sinatra::Flash
 
       configure do
-        set(:views, proc { File.join(root, '../../..', 'themes', ENV['APP_THEME'], 'views') })
-        set(:public_folder, proc { File.join(root, '../../..', 'themes', ENV['APP_THEME'], 'assets') })
+        set(:views, proc { File.join(root, '../../..', 'addons', Addon.theme.id, 'views') })
+        set(:public_folder, proc { File.join(root, '../../..', 'addons', Addon.theme.id, 'assets') })
 
         set(:show_exceptions, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
         set(:raise_errors, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })

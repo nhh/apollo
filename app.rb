@@ -6,14 +6,13 @@ require 'byebug'
 
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")
-loader.push_dir("themes")
-loader.push_dir("plugins")
+loader.push_dir("addons")
 loader.push_dir("widgets")
 
 if ENV["APP_ENV"] == "development"
   require 'listen'
   loader.enable_reloading
-  listener = Listen.to('lib', 'themes', 'plugins', 'widgets') { |_, _, _| loader.reload }
+  listener = Listen.to('lib', 'addons', 'widgets') { |_, _, _| loader.reload }
   listener.start
 end
 
@@ -28,19 +27,14 @@ Mongoid.load!("config/mongoid.yml", ENV["APP_ENV"])
 
 puts "Apollo: Connected to database"
 
-Apollo::PluginLoader.load_plugins
-Apollo::ThemeLoader.load_themes
-
-use Apollo::Controllers::AdminThemeController
+use Apollo::Controllers::AdminAddonController
 use Apollo::Controllers::AdminPageController
 use Apollo::Controllers::AdminPostController
 use Apollo::Controllers::AdminUserController
-use Apollo::Controllers::AdminPluginController
 use Apollo::Controllers::AdminWidgetController
 use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 
-Apollo::ThemeLoader.themes.each {|theme| theme.new.controllers.each {|controller| use controller} }
-Apollo::PluginLoader.plugins.each {|plugin| plugin.new.controllers.each { |controller| use controller } }
+Apollo::Addon.descendants.each {|addon| addon.controllers.each {|controller| use controller} }
 
 Sinatra::Application.run!
