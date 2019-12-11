@@ -1,32 +1,42 @@
-<aside class="menu">
-  <ul class="menu-list">
-    <% menu_items.group_by {|item| item[:category]}.each do |key, items| %>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item">
+      <div class="field has-addons">
+        <p class="control">
+          <input class="input" type="text" placeholder="Find a post">
+        </p>
+        <p class="control">
+          <button class="button">
+            Search
+          </button>
+        </p>
+      </div>
+    </a>
 
-      <p class="menu-label">
-        <b><%= key %></b>
-      </p>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 
-      <% items.each do |item| %>
-        <li>
-          <a class="<%= request.path_info.include?(item[:href]) ? 'is-active' : '' %>" href="<%= item[:href] %>"><%= item[:title] %></a>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+    </div>
 
-          <% if item[:children].size > 0 %>
-            <ul>
+    <div class="navbar-end">
 
-              <% item[:children].each do |child| %>
-                <li>
-                  <a href="<%= child[:href] %>"><%= child[:title] %></a>
-                </li>
-              <% end %>
+      <a class="navbar-item">
+        Documentation
+      </a>
 
-            </ul>
-          <% end %>
-
-
-        </li>
-      <% end %>
-
-
-    <% end %>
-  </ul>
-</aside>
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="/" class="button is-primary">
+            <strong>Zur Seite</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

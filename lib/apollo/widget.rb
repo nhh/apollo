@@ -10,12 +10,11 @@ module Apollo
 
     def self.inherited(subclass)
       # Eager loading all classes via zeitwerk pushes these class into the descendants
-      @descendants ||= []
-      @descendants << subclass
+      Apollo::Core::WidgetManager.instance.add subclass
     end
 
     def self.descendants
-      @descendants
+      Apollo::Core::WidgetManager.instance.descendants
     end
 
   end

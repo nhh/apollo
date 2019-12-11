@@ -7,16 +7,19 @@
   </head>
   <body>
 
-    <section class="section">
-      <div class="columns">
-        <div class="column is-narrow">
-          <%= erb :'navigation.html' %>
-        </div>
-        <div class="column">
-          <%= yield %>
-        </div>
+    <div class="columns">
+      <div class="column is-narrow">
+        <section class="section" style="padding-top: 0.5rem !important;">
+          <%= erb :'sidebar.html' %>
+        </section>
       </div>
-    </section>
+      <div class="column">
+        <%= erb :'navigation.html' %>
+        <section class="section">
+          <%= yield %>
+        </section>
+      </div>
+    </div>
 
     <!-- Todo this is how we embedd our components. Every Component is its own Vue App -->
     <script async type="module" src="/js/components/HeaderComponent.js"></script>

@@ -1,0 +1,35 @@
+<h1 class="title">Apollo Cms</h1>
+<h1 class="subtitle">Version 0.0.1</h1>
+<hr>
+<aside class="menu">
+  <ul class="menu-list">
+    <% menu_items.group_by {|item| item[:category]}.each do |key, items| %>
+
+      <p class="menu-label">
+        <b><%= key %></b>
+      </p>
+
+      <% items.each do |item| %>
+        <li>
+          <a class="<%= request.path_info.include?(item[:href]) ? 'is-active' : '' %>" href="<%= item[:href] %>"><%= item[:title] %></a>
+
+          <% if item[:children].size > 0 %>
+            <ul>
+
+              <% item[:children].each do |child| %>
+                <li>
+                  <a href="<%= child[:href] %>"><%= child[:title] %></a>
+                </li>
+              <% end %>
+
+            </ul>
+          <% end %>
+
+
+        </li>
+      <% end %>
+
+
+    <% end %>
+  </ul>
+</aside>
