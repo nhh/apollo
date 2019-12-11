@@ -6,12 +6,12 @@ module Apollo
 
       get '/admin/widgets' do
         @widgets = Apollo::Widget.descendants
-        erb :'widgets/index.html', layout: :'layout.html'
+        erb :'widgets/index.html', layout: :'admin_layout.html'
       end
 
       get '/admin/widgets/:template_name' do |widget_name|
         @widget = Apollo::Widget.descendants.detect {|widget| widget.name == widget_name }
-        erb :'widgets/show.html', layout: :'layout.html'
+        erb :'widgets/show.html', layout: :'admin_layout.html'
       end
 
     end

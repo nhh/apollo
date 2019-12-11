@@ -3,11 +3,28 @@
 module Apollo
   module Controllers
     class AddonController < Sinatra::Base
+      include Apollo::Helpers::AdminNavigation
+
       register ::Sinatra::Flash
 
+      def find_template(views, name, engine, &block)
+        Array(views).each do |v|
+          if v.is_a?(Proc)
+            super(v.call, name, engine, &block)
+          else
+            super(v, name, engine, &block)
+          end
+        end
+      end
+
       configure do
-        set(:views, proc { File.join(root, '../../..', 'addons', Addon.theme.id, 'views') })
-        set(:public_folder, proc { File.join(root, '../../..', 'addons', Addon.theme.id, 'assets') })
+
+        set :views, [
+          proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.id, 'views') },
+          File.join(root, '..', 'views')
+        ]
+
+        set(:public_folder, proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.id, 'assets') })
 
         set(:show_exceptions, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
         set(:raise_errors, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
@@ -26,17 +43,17 @@ module Apollo
 
       error Apollo::Errors::EntityNotFoundError do
         status 404
-        erb :'404.html', layout: :'layout.html'
+        erb :'404.html', layout: :'admin_layout.html'
       end
 
       error do
         status 500
-        erb :'500.html', layout: :'layout.html'
+        erb :'500.html', layout: :'admin_layout.html'
       end
 
       not_found do
         status 404
-        erb :'404.html', layout: :'layout.html'
+        erb :'404.html', layout: :'admin_layout.html'
       end
 
     end

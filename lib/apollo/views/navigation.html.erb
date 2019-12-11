@@ -1,6 +1,6 @@
 <aside class="menu">
   <ul class="menu-list">
-    <% Apollo::Helpers::AdminNavigation::ITEMS.group_by {|item| item[:category]}.each do |key, items| %>
+    <% menu_items.group_by {|item| item[:category]}.each do |key, items| %>
 
       <p class="menu-label">
         <b><%= key %></b>

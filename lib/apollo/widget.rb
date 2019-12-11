@@ -8,8 +8,14 @@ module Apollo
       []
     end
 
+    def self.inherited(subclass)
+      # Eager loading all classes via zeitwerk pushes these class into the descendants
+      @descendants ||= []
+      @descendants << subclass
+    end
+
     def self.descendants
-      ObjectSpace.each_object(Class).select { |klass| klass < Apollo::Widget }.map { |widget| widget.new }
+      @descendants
     end
 
   end

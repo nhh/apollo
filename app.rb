@@ -31,10 +31,13 @@ use Apollo::Controllers::AdminAddonController
 use Apollo::Controllers::AdminPageController
 use Apollo::Controllers::AdminPostController
 use Apollo::Controllers::AdminUserController
+use Apollo::Controllers::AdminSettingsController
 use Apollo::Controllers::AdminWidgetController
 use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 
-Apollo::Addon.descendants.each {|addon| addon.controllers.each {|controller| use controller} }
+Apollo::Addon.descendants
+  .map {|addon| addon.new }
+  .each {|addon| addon.controllers.each {|controller| use controller } }
 
 Sinatra::Application.run!

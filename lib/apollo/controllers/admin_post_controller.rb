@@ -6,12 +6,12 @@ module Apollo
 
       get '/admin/posts/new' do
         @post = Apollo::Models::Post.new
-        erb :'posts/new.html', layout: :'layout.html'
+        erb :'posts/new.html', layout: :'admin_layout.html'
       end
 
       get '/admin/posts' do
         @posts = Apollo::Models::Post.all
-        erb :'posts/index.html', layout: :'layout.html'
+        erb :'posts/index.html', layout: :'admin_layout.html'
       end
 
       post '/admin/posts' do

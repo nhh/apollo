@@ -1,3 +1,7 @@
 data/
 spec/
 .env
+widgets/
+addons/
+!widgets/.gitkeep
+!addons/.gitkeep

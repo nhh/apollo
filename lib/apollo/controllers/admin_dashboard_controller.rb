@@ -5,7 +5,7 @@ module Apollo
     class AdminDashboardController < Apollo::Controllers::AdminController
 
       get '/admin/dashboard' do
-        erb :'dashboard/index.html', layout: :'layout.html'
+        erb :'dashboard/index.html', layout: :'admin_layout.html'
       end
 
     end

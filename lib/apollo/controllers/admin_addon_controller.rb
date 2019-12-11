@@ -6,12 +6,12 @@ module Apollo
 
       get '/admin/addons' do
         @themes = Apollo::Addon.descendants
-        erb :'addons/index.html', layout: :'layout.html'
+        erb :'addons/index.html', layout: :'admin_layout.html'
       end
 
       get '/admin/addons/:addon_name' do |addon_name|
         @theme = Apollo::Addon.descendants.detect {|theme| theme.name == addon_name }
-        erb :'addons/show.html', layout: :'layout.html'
+        erb :'addons/show.html', layout: :'admin_layout.html'
       end
 
     end

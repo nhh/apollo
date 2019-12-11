@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+require 'zeitwerk'
+require 'mongoid'
+require 'byebug'
+require 'sinatra'
+require 'sinatra/flash'
+
+loader = Zeitwerk::Loader.new
+loader.push_dir("lib")
+loader.push_dir("addons")
+loader.push_dir("widgets")
+
+if ENV["APP_ENV"] == "development"
+  require 'listen'
+  loader.enable_reloading
+  listener = Listen.to('lib', 'addons', 'widgets') { |_, _, _| loader.reload }
+  listener.start
+end
+
+loader.setup
+loader.eager_load
+
+# Setup i18n
+I18n.load_path << Dir[File.expand_path("config/locales/") + "*.yml"]
+
+# Setup Database
+Mongoid.load!("config/mongoid.yml", ENV["APP_ENV"])
+
+puts "INFO: Start hacking here"
+
+pry
