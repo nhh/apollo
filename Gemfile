@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.6.3'
 
+gem 'yard'
 gem 'i18n'
 gem 'listen', '~> 3.0'
 gem 'zeitwerk'

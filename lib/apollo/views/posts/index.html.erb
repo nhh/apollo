@@ -15,7 +15,9 @@
       <div class="box">
         <%= post.name %>
         <hr>
-        <%= post.content %>
+        <% post.columns.each do |column| %>
+          <div class="box is-<%= column.size %>"><%= column.content %></div>
+        <% end %>
       </div>
     </div>
   <% end %>
