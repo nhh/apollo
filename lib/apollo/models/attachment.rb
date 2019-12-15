@@ -1,70 +1,71 @@
+require 'open-uri'
+
 module Apollo
   module Models
+
+    # The attachment class is the central class for working with images and other kind of files
+    # attachment currently supports the following prefixes for file_urls: ["http://", "https://", "file://"]
+    #
+    # Apollo attachment:
+    #   attachment = Attachment.new
+    #   attachment.url = "file:///var/www/downloads/product-description.pdf"
+    #
+    # Addon attachment:
+    #   attachment = Attachment.new
+    #   attachment.url = "file:///var/www/downloads/product-description.pdf"
+    #   attachment.addon_id = "my-plugin"
+    #   attachment.valid? => true
+    #   attachment.url = "https://example.com/images/test.pdf"
+    #   attachment.addon_id = "my-plugin"
+    #   attachment.valid? => true
+    #
     class Attachment
       include Mongoid::Document
 
-      validates :mime_type, presence: true
+      validates :mime_type, :name, :addon_id, :file_url, presence: true
 
       field :mime_type, type: String
       field :name, type: String
       field :tags, type: Set
-      field :addon_id, type: String
+      field :addon_id, type: String, default: "apollo"
+      field :file_url, type: String
+      field :file_size, type: String
 
-      # Converts the object into textual markup given a specific format.
+      before_save :update_file
+      before_destroy :delete_file
+
+      # Returns the absolute path of the file, whether its saved or not.
       #
-      # @param file [File] the input must be from type file
-      # @param addon_id [String] indicates this file comes from an addon. This is necessary for the uninstall action removing downloaded assets.
-      #
-      # Examples:
-      # Apollo attachment:
-      #   attachment = Attachment.new(File.new("/var/www/downloads/product-description.pdf"))
-      # Addon attachment:
-      #   attachment = Attachment.new(File.new("/var/www/downloads/product-description.pdf"), "my-plugin")
-      def initialize(file, addon_id="apollo")
-        throw StandardError if file.readable?
-        addon_id = addon_id
-        file = file
-      end
-
-      def url
-        # Return e.g https://niklashanft.com/attachments/ID
-      end
-
-      # @deprecated Use {#path} instead of this method because
-      #   it uses a library that is no longer supported in Ruby 1.9.
-      #   The new method accepts the same parameters.
-      #   IMPORTANT: This method will be removed in Apollo 2.1
-      def file_path
-
-      end
-
+      # Example:
+      #   attachment.path => "/Users/USERNAME/Development/Ruby/apollo/data/apollo/attachments/5df68ebf4a426f8324d931a3"
       def path
-        String.new("")
+        Apollo::Utils::Path.base("#{addon_id}/attachments/#{id.to_s}")
       end
 
-      def self.download_and_create!(url)
-        # Todo download url and save under data/apollo/attachments
+      protected
+
+      def delete_file
+        FileUtils.remove_file path, :force => true
       end
 
-      def size
+      def update_file
+        return unless self.changed_attributes.keys.include? "file_url"
 
-      end
+        case URI.parse(self.file_url).scheme
 
-      def destroy
-        File.unlink(file_path)
-        super.destroy
-      end
-
-      def save
-        File.open(path, "rw") do |output|
-          file.each_line.lazy.each {|line| output.write(line)}
+        when "http"
+          io = Down::Http.open(file_url)
+        when "https"
+          io = Down::Http.open(file_url)
+        when "file"
+          io = open(file_url.sub(%r{^file://}, ''))
+        else
+          throw ArgumentError "Please provide a valid file url"
         end
-        super.save
+
+        self.file_size = IO.copy_stream(io, File.open(path, "w"))
+
       end
-
-      private
-
-      attr_accessor :file
 
     end
   end

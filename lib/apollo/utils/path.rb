@@ -14,7 +14,7 @@ module Apollo
         Dir.mkdir(self.base(addon_id))
       end
 
-      # Creates a directory in the correct namespace for the plugin
+      # Deletes the directory, no matter if its empty or not
       #
       def self.rmdir(addon_id)
         FileUtils.rm_rf(self.base(addon_id))

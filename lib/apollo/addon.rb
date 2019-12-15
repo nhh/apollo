@@ -48,14 +48,10 @@ module Apollo
     attr_accessor :name
 
     # Wheter the addon is a ":widget", a ":theme" or an ":addon"
-    attr_accessor :type
+    attr_accessor :category
 
     # Semver look at https://semver.org/
     attr_accessor :version
-
-    def initialize
-      @theme = false
-    end
 
     # Registers a custom callback to ensure working with all inherited addons
     #
@@ -80,7 +76,7 @@ module Apollo
     end
 
     def theme?
-      @theme
+      category == :theme
     end
 
   end

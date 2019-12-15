@@ -3,6 +3,8 @@ require 'mongoid'
 require 'sinatra'
 require 'sinatra/flash'
 require 'byebug'
+require "http"
+require "down/http"
 
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")

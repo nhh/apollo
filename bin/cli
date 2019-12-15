@@ -1,23 +1,20 @@
 #!/usr/bin/env ruby
 
-require 'pry'
 require 'zeitwerk'
+require 'pry'
 require 'mongoid'
-require 'byebug'
 require 'sinatra'
 require 'sinatra/flash'
+require 'byebug'
+require "http"
+require "down/http"
 
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")
 loader.push_dir("addons")
 loader.push_dir("widgets")
 
-if ENV["APP_ENV"] == "development"
-  require 'listen'
-  loader.enable_reloading
-  listener = Listen.to('lib', 'addons', 'widgets') { |_, _, _| loader.reload }
-  listener.start
-end
+loader.enable_reloading
 
 loader.setup
 loader.eager_load

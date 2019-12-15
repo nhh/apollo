@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.6.3'
 
+gem "down"
+gem "http"
 gem 'yard'
 gem 'i18n'
 gem 'listen', '~> 3.0'

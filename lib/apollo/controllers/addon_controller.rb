@@ -20,11 +20,11 @@ module Apollo
       configure do
 
         set :views, [
-          proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.id, 'views') },
+          proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.uid, 'views') },
           File.join(root, '..', 'views')
         ]
 
-        set(:public_folder, proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.id, 'assets') })
+        set(:public_folder, proc { File.join(root, '../../..', 'addons', Apollo::Addon.theme.uid, 'assets') })
 
         set(:show_exceptions, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
         set(:raise_errors, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
