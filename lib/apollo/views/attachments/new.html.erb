@@ -1,0 +1,37 @@
+<h1 class="title">Neuen Post erstellen</h1>
+
+<form action="/admin/pages" method="post">
+  <div class="field">
+    <label class="label">Titel</label>
+    <div class="control">
+      <input class="input" name="page[name]" type="text" required>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Content</label>
+    <div class="control">
+      <input id="content" type="hidden" name="page[content]">
+      <div class="textarea" id="editor"></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <button type="submit" class="button is-success">Erstellen</button>
+  </div>
+</form>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/12.2.0/balloon/ckeditor.js"></script>
+
+<script>
+  BalloonEditor.create(document.querySelector('#editor'))
+    .then(editor => {
+        editor.model.document.on('change:data', () => {
+            content = document.getElementById("content");
+            content.value = editor.getData();
+        });
+    })
+    .catch( error => {
+        console.error( error );
+    });
+</script>

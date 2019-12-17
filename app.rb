@@ -33,7 +33,7 @@ use Apollo::Controllers::AdminPageController
 use Apollo::Controllers::AdminPostController
 use Apollo::Controllers::AdminUserController
 use Apollo::Controllers::AdminSettingsController
-use Apollo::Controllers::AdminWidgetController
+use Apollo::Controllers::AdminAttachmentController
 use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 

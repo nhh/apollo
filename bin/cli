@@ -12,7 +12,6 @@ require "down/http"
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")
 loader.push_dir("addons")
-loader.push_dir("widgets")
 
 loader.enable_reloading
 
