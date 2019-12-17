@@ -9,12 +9,11 @@ require "down/http"
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")
 loader.push_dir("addons")
-loader.push_dir("widgets")
 
 if ENV["APP_ENV"] == "development"
   require 'listen'
   loader.enable_reloading
-  listener = Listen.to('lib', 'addons', 'widgets') { |_, _, _| loader.reload }
+  listener = Listen.to('lib', 'addons') { |_, _, _| loader.reload }
   listener.start
 end
 
