@@ -1,24 +1,27 @@
 require 'zeitwerk'
 require 'mongoid'
-require 'sinatra'
-require 'sinatra/flash'
+require 'rufus-scheduler'
+require 'sucker_punch'
 require 'byebug'
 require "http"
 require "down/http"
+require 'sinatra'
+require 'sinatra/flash'
 
 loader = Zeitwerk::Loader.new
 loader.push_dir("lib")
 loader.push_dir("addons")
 
-if ENV["APP_ENV"] == "development"
-  require 'listen'
-  loader.enable_reloading
-  listener = Listen.to('lib', 'addons') { |_, _, _| loader.reload }
-  listener.start
-end
-
 loader.setup
 loader.eager_load
+
+scheduler = Rufus::Scheduler.new
+
+# Storing a reference of the descendants for avoiding gc
+jobs = Apollo::Job.descendants
+jobs.map { |job| job.new }.each do |job|
+  scheduler.send(job.schedule_info[:method], job.schedule_info[:time], job.class)
+end
 
 # Setup i18n
 I18n.load_path << Dir[File.expand_path("config/locales/") + "*.yml"]
@@ -37,8 +40,8 @@ use Apollo::Controllers::AdminAttachmentController
 use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 
-Apollo::Addon.descendants
-  .map {|addon| addon.new }
-  .each {|addon| addon.controllers.each {|controller| use controller } }
+# Storing a reference of the descendants for avoiding gc
+controllers = Apollo::Addon.descendants.map {|addon| addon.new }
+controllers.each {|addon| addon.controllers.each {|controller| use controller } }
 
 Sinatra::Application.run!

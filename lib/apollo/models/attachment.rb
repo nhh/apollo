@@ -64,7 +64,6 @@ module Apollo
         end
 
         self.file_size = IO.copy_stream(io, File.open(path, "w"))
-
       end
 
     end
