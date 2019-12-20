@@ -39,44 +39,22 @@ module Apollo
   #     end
   #   end
   #
-  class Addon
-
-    # The unique identifier for the addon
-    attr_accessor :uid
-
-    # The addon name, choose something descriptive
-    attr_accessor :name
-
-    # Wheter the addon is a ":widget", a ":theme" or an ":addon"
-    attr_accessor :category
-
-    # Semver look at https://semver.org/
-    attr_accessor :version
+  module Addon
 
     # Registers a custom callback to ensure working with all inherited addons
     #
-    def self.inherited(subclass)
-      Apollo::Core::AddonManager.instance.add subclass
+    def self.included(klass)
+      #klass.extend KlassMethods
+      # Dynamically including the SuckerPunch Job module
+      klass.class_eval do
+        #include SuckerPunch::Job
+        attr_accessor :uid, :name, :category, :version
+      end
+      Apollo::Core::AddonManager.instance.add klass
     end
 
-    def self.descendants
-      Apollo::Core::AddonManager.instance.descendants
-    end
-
-    def controllers
+    def self.menu_entries
       []
-    end
-
-    def models
-      []
-    end
-
-    def self.theme
-      Apollo::Core::AddonManager.instance.descendants.map {|addon| addon.new }.detect { |addon| addon.theme? }
-    end
-
-    def theme?
-      category == :theme
     end
 
   end

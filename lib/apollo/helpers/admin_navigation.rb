@@ -12,7 +12,7 @@ module Apollo
           { title: 'Benutzer', href: '/admin/users', icon: '', children: [], category: 'Benutzer' },
           { title: 'Addons', href: '/admin/addons', icon: '', children: [], category: 'Erweiterungen' },
           { title: 'Settings', href: '/admin/settings', icon: '', children: [], category: 'Einstellungen' }
-        ] + Apollo::Addon.descendants.map{ |addon| addon.new}.map { |a| a.menu_entries }.flatten
+        ] + Apollo::Core::AddonManager.instance.descendants.map{ |addon| addon.new}.map { |a| a.menu_entries }.flatten
       end
     end
   end

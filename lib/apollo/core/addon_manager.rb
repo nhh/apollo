@@ -24,6 +24,10 @@ module Apollo
         addon.nil?
       end
 
+      def theme
+        descendants.map {|addon| addon.new }.detect { |addon| addon.category == :theme }
+      end
+
     end
   end
 end

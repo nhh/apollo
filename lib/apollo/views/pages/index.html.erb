@@ -13,8 +13,7 @@
   <% @pages.each do |page| %>
     <div class="column">
       <div class="box">
-        <%= page.name %>
-        <%= page.content %>
+        <%= page.name || "Kein Name" %>
       </div>
     </div>
   <% end %>

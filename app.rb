@@ -41,7 +41,7 @@ use Apollo::Controllers::AdminDashboardController
 use Apollo::Controllers::AdminLoginController
 
 # Storing a reference of the descendants for avoiding gc
-controllers = Apollo::Addon.descendants.map {|addon| addon.new }
+controllers = Apollo::Core::AddonManager.instance.descendants.map {|addon| addon.new }
 controllers.each {|addon| addon.controllers.each {|controller| use controller } }
 
 Sinatra::Application.run!
