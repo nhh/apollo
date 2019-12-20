@@ -18,7 +18,7 @@ loader.eager_load
 scheduler = Rufus::Scheduler.new
 
 # Storing a reference of the descendants for avoiding gc
-jobs = Apollo::Job.descendants
+jobs = Apollo::Core::JobManager.instance.descendants
 jobs.map { |job| job.new }.each do |job|
   scheduler.send(job.schedule_info[:method], job.schedule_info[:time], job.class)
 end
