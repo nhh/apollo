@@ -26,3 +26,10 @@ The most exciting content management system yet. (at least for me..)
 - Redis Cache
 - Shop (Woocommerce)
 - Customer management
+
+
+## Deployment and Runtime notes
+
+Apollo will be "packaged" as a gem. All runtime dependencies will be resolved by the server.
+
+Installation is as simple as "gem install apollo". Configration will live in "/etc/apollo/config" and files will live within "/var/lib/apollo/data" and "/var/lib/apollo/addons"

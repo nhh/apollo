@@ -6,7 +6,8 @@ vendor/
 .idea/
 data/
 addons/
-widgets/
-!widgets/.gitkeep
 !data/.gitkeep
 !addons/.gitkeep
+!lib/apollo/views/addons/
+/releases/
+*.gem

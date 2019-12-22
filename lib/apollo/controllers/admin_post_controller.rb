@@ -18,13 +18,7 @@ module Apollo
         post = Apollo::Models::Post.new
         post.name = params.dig('post', 'name')
 
-        translation = Apollo::Models::Translation.new
-
-
-        translation.language = I18n.locale
-        translation.content = params.dig('post', 'content')
-
-        post.translations << translation
+        post.language = I18n.locale
 
         post.slug = params.dig('post', 'name').downcase.gsub(' ', '-')
         post.categories << 'NEW'

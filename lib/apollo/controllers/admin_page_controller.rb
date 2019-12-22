@@ -17,13 +17,7 @@ module Apollo
       post '/admin/pages' do
         page = Apollo::Models::Page.new
 
-        translation = Apollo::Models::Translation.new
-
-
-        translation.language = I18n.locale
-        translation.content = params.dig('page', 'content')
-
-        page.translations << translation
+        page.language = I18n.locale
 
         page.name = params.dig('page', 'name')
         page.slug = params.dig('page', 'name').downcase.gsub(' ', '-')

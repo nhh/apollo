@@ -2,18 +2,29 @@ require 'zeitwerk'
 require 'mongoid'
 require 'rufus-scheduler'
 require 'sucker_punch'
-require 'byebug'
 require "http"
 require "down/http"
 require 'sinatra'
 require 'sinatra/flash'
+require 'byebug'
 
 loader = Zeitwerk::Loader.new
-loader.push_dir("lib")
-loader.push_dir("addons")
+loader.push_dir(File.expand_path('../lib', __FILE__))
 
 loader.setup
 loader.eager_load
+
+bootstrapper = Apollo::Core::AddonBootstrapper.new
+
+# Todo make this configurable and put into appropriate file/class
+Dir.glob("/var/lib/apollo/addons/*.gem") do |addon|
+  bootstrapper.install_addon addon
+  begin
+    require addon.gsub("/var/lib/apollo/addons/", "").split("-")[0]
+  rescue StandardError => e
+    puts "ERROR: Cannot load addon: #{addon.gsub("/var/lib/apollo/addons/", "").split("-")[0]}"
+  end
+end
 
 scheduler = Rufus::Scheduler.new
 
@@ -24,10 +35,10 @@ jobs.map { |job| job.new }.each do |job|
 end
 
 # Setup i18n
-I18n.load_path << Dir[File.expand_path("config/locales/") + "*.yml"]
+I18n.load_path << Dir[File.expand_path("../config/locales/", __FILE__) + "*.yml"]
 
 # Setup Database
-Mongoid.load!("config/mongoid.yml", ENV["APP_ENV"])
+Mongoid.load!(File.expand_path("../config/mongoid.yml", __FILE__), ENV["APP_ENV"])
 
 puts "Apollo: Connected to database"
 

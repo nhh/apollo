@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'rubygems'
+require 'commander/import'
+
+require_relative '../lib/apollo'
+
+# Create "default" directories
+FileUtils.mkdir_p '/var/lib/apollo/data'
+FileUtils.mkdir_p '/var/lib/apollo/addons'
+FileUtils.mkdir_p '/etc/apollo/'
+
+# :name is optional, otherwise uses the basename of this executable
+program :name, 'Apollo'
+program :version, Apollo::VERSION
+program :description, 'Stupid command that prints foo or bar.'
+
+command :s do |c|
+  c.syntax = 'apollo serve [options]'
+  c.description = 'Runs the apollo server'
+  c.option '--debug', nil, 'Runs the apollo server in debug mode'
+  c.option '--suffix STRING', String, 'Adds a suffix to bar'
+  c.action do |args, options|
+    puts "Starting apollo server..."
+    require_relative '../app'
+  end
+end
+
+command :c do |c|
+  c.syntax = 'apollo console [options]'
+  c.description = 'Display bar with optional prefix and suffix'
+  c.option '--prefix STRING', String, 'Adds a prefix to bar'
+  c.option '--suffix STRING', String, 'Adds a suffix to bar'
+  c.action do |args, options|
+    options.default :prefix => '(', :suffix => ')'
+    puts "Starting apollo commandline..."
+    require_relative 'cli'
+  end
+end

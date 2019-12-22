@@ -1,0 +1,6 @@
+<div class="title">Themes</div>
+<%= erb :'addons/_tabs.html' %>
+
+<% @themes.each do |theme| %>
+  <a href="/admin/themes/<%= theme.name %>"><%= theme.name %></a>
+<% end %>

@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.3'
-
+gem "commander"
 gem "down"
 gem "http"
 gem 'yard'

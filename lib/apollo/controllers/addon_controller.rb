@@ -4,7 +4,6 @@ module Apollo
   module Controllers
     class AddonController < Sinatra::Base
       include Apollo::Helpers::AdminNavigation
-
       register ::Sinatra::Flash
 
       def find_template(views, name, engine, &block)
@@ -20,11 +19,11 @@ module Apollo
       configure do
 
         set :views, [
-          proc { File.join(root, '../../..', 'addons', Apollo::Core::AddonManager.instance.theme.uid, 'views') },
+          proc { File.expand_path('../../views', __FILE__) },
           File.join(root, '..', 'views')
         ]
 
-        set(:public_folder, proc { File.join(root, '../../..', 'addons', Apollo::Core::AddonManager.instance.theme.uid, 'assets') })
+        set(:public_folder, proc { File.expand_path('../../views', __FILE__) })
 
         set(:show_exceptions, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })
         set(:raise_errors, proc { ENV['APP_ENV'] == 'development' || ENV['APP_ENV'].nil? })

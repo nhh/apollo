@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'zeitwerk'
+require 'rufus-scheduler'
+require 'sucker_punch'
 require 'pry'
 require 'mongoid'
 require 'sinatra'
@@ -10,10 +12,7 @@ require "http"
 require "down/http"
 
 loader = Zeitwerk::Loader.new
-loader.push_dir("lib")
-loader.push_dir("addons")
-
-loader.enable_reloading
+loader.push_dir(File.expand_path('../../lib', __FILE__))
 
 loader.setup
 loader.eager_load
