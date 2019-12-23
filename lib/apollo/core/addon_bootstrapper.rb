@@ -12,7 +12,7 @@ module Apollo
         # Todo check versioning and verify installation
 
         cmd = Gem::Commands::InstallCommand.new
-        cmd.handle_options [name, "--no-document", "--local"] # This is an array
+        cmd.handle_options [name, "--no-document"] # This is an array
         cmd.execute
 
       rescue Gem::SystemExitException => e
