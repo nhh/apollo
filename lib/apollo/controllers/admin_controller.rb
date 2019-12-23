@@ -29,6 +29,12 @@ module Apollo
         status 500
         erb :'500.html', layout: :'admin_layout.html'
       end
+
+      not_found do
+        status 404
+        erb :'404.html', layout: :'admin_layout.html'
+      end
+
     end
   end
 end
