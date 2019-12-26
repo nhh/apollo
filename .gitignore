@@ -11,3 +11,4 @@ addons/
 !lib/apollo/views/addons/
 /releases/
 *.gem
+pkg/

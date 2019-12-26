@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'apollo/controllers/admin_controller'
+require 'apollo/models/user'
+
 module Apollo
   module Controllers
     class AdminUserController < Apollo::Controllers::AdminController

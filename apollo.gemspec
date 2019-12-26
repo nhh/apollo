@@ -1,12 +1,14 @@
-require_relative 'lib/apollo'
+lib = File.expand_path("lib", __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "apollo/version"
 
 Gem::Specification.new do |s|
 
   s.name = 'apollo'
   s.version = Apollo::VERSION
 
-  s.summary     = Apollo::SUMMARY
-  s.description = Apollo::DESCRIPTION
+  s.summary     = "Summary"
+  s.description = "Description"
 
   s.authors = ['Niklas Hanft']
   s.email = 'hello@niklashanft.com'
@@ -16,23 +18,30 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.executables << 'apollo'
   s.required_ruby_version = '~> 2.5'
+  s.require_path = 'lib'
 
-  s.add_runtime_dependency 'bundler'
-  s.add_runtime_dependency 'pry'
-  s.add_runtime_dependency 'byebug'
-  s.add_runtime_dependency 'commander'
-  s.add_runtime_dependency 'rake'
-  s.add_runtime_dependency 'sinatra', '~> 2.0.7'
-  s.add_runtime_dependency 'sinatra-flash'
-  s.add_runtime_dependency 'down'
-  s.add_runtime_dependency 'http'
-  s.add_runtime_dependency 'i18n'
+  # Dependencies
+  s.add_dependency 'omniauth'
+  s.add_dependency 'commander'
+  s.add_dependency 'rake'
+  s.add_dependency 'sinatra', '~> 2.0.7'
+  s.add_dependency 'sinatra-flash'
+  s.add_dependency 'down'
+  s.add_dependency 'http'
+  s.add_dependency 'i18n'
 
-  s.add_runtime_dependency 'zeitwerk'
-  s.add_runtime_dependency 'puma', '~> 4'
-  s.add_runtime_dependency 'bcrypt'
-  s.add_runtime_dependency 'mongoid'
-  s.add_runtime_dependency 'rufus-scheduler'
-  s.add_runtime_dependency 'sucker_punch'
+  s.add_dependency "activesupport", "~> 4.2.0"
+  s.add_dependency 'puma', '~> 4'
+  s.add_dependency 'bcrypt'
+  s.add_dependency 'mongoid'
+  s.add_dependency 'rufus-scheduler'
+  s.add_dependency 'sucker_punch'
+
+  # Development Dependencies
+  s.add_development_dependency 'pry'
+  s.add_development_dependency 'byebug'
+  s.add_development_dependency "bundler", "~> 2.0"
+  s.add_development_dependency "rake", "~> 10.0"
+  s.add_development_dependency "rspec", "~> 3.0"
 
 end

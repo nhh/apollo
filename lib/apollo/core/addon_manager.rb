@@ -1,10 +1,12 @@
+require 'singleton'
+
 module Apollo
   module Core
     # The class for registering all addons
     #
     # It is responsible for keeping all track of addons
     class AddonManager
-      include Singleton
+      include ::Singleton
       attr_accessor :descendants
 
       def initialize

@@ -1,0 +1,9 @@
+---
+language: ruby
+cache: bundler
+rvm:
+  - 2.5.5
+bundler_args: --jobs=2
+script:
+  - bundle exec rspec
+  - bundle exec rake build

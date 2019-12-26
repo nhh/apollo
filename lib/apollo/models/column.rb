@@ -1,3 +1,5 @@
+require 'mongoid'
+
 module Apollo
   module Models
     class Column

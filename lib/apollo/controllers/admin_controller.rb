@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
+require 'sinatra/base'
+require 'sinatra/flash'
+require 'omniauth'
+
 module Apollo
   module Controllers
     class AdminController < ::Sinatra::Base
-      register ::Sinatra::Flash
       include Apollo::Helpers::AdminNavigation
+
+      use ::OmniAuth::Strategies::Developer
+      register ::Sinatra::Flash
 
       configure do
         set(:views, proc { File.join(root, '..', 'views') })
