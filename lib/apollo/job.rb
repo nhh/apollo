@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+require 'sucker_punch'
+
+require 'apollo/core/job_manager'
+
 module Apollo
   # Central module for jobs. Either future, recurring, cron or one timers.
   #

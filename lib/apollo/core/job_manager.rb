@@ -22,8 +22,6 @@ module Apollo
 
       def add(descendant)
         @descendants << descendant
-        job = descendant.new
-        @scheduler.send(job.schedule_info[:method], job.schedule_info[:time], job.class)
         @logger.info { "An job has been added: #{ descendant }" }
       end
 
