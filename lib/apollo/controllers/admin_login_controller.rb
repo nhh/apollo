@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require 'apollo/helpers/admin_navigation'
+
 module Apollo
   module Controllers
-    class AdminLoginController < AdminController
+    class AdminLoginController < Apollo::Controllers::AdminController
 
       get '/login' do
         erb :'login/index.html'

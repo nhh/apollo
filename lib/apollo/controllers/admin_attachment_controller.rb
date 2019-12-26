@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'apollo/controllers/admin_controller'
+require 'apollo/models/attachment'
+
 module Apollo
   module Controllers
     class AdminAttachmentController < Apollo::Controllers::AdminController

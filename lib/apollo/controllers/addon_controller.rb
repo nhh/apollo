@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+require 'sinatra/base'
+require 'sinatra/flash'
+
+require 'apollo/helpers/admin_navigation'
+require 'apollo/errors/entity_not_found_error'
+require 'apollo/models/user'
+
 module Apollo
   module Controllers
     class AddonController < Sinatra::Base
@@ -37,7 +44,7 @@ module Apollo
       end
 
       def current_user
-        User[session[:user_id]]
+        Apollo::Models::User[session[:user_id]]
       end
 
       error Apollo::Errors::EntityNotFoundError do

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'apollo/controllers/admin_controller'
+require 'apollo/core/addon_manager'
+
 module Apollo
   module Controllers
     class AdminAddonController < Apollo::Controllers::AdminController

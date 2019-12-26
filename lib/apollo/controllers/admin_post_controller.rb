@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+require 'i18n'
+
+require 'apollo/controllers/admin_controller'
+require 'apollo/helpers/admin_navigation'
+require 'apollo/models/post'
+
+
 module Apollo
   module Controllers
     class AdminPostController < Apollo::Controllers::AdminController

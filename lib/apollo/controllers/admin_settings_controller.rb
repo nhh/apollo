@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
+require 'apollo/controllers/admin_controller'
+
 module Apollo
   module Controllers
     class AdminSettingsController < Apollo::Controllers::AdminController
 
       get '/admin/settings/privacy' do
-        @user = Apollo::Models::User.new
         erb :'settings/new.html', layout: :'admin_layout.html'
       end
 
       get '/admin/settings/pages' do
-        @user = Apollo::Models::User.new
         erb :'settings/new.html', layout: :'admin_layout.html'
       end
 

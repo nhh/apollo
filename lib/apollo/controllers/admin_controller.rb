@@ -4,6 +4,11 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require 'omniauth'
 
+require 'apollo/helpers/admin_navigation'
+require 'apollo/controllers/admin_controller'
+require 'apollo/core/addon_manager'
+require 'apollo/models/user'
+
 module Apollo
   module Controllers
     class AdminController < ::Sinatra::Base
@@ -27,7 +32,7 @@ module Apollo
       end
 
       def current_user
-        @current_user ||= Apollo::User[session[:user_id]]
+        @current_user ||= Apollo::Models::User[session[:user_id]]
       end
 
       # Todo we can just call error FileNotFoundError do so we can get more specific

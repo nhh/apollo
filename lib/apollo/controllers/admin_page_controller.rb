@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'apollo/helpers/admin_navigation'
+require 'apollo/models/page'
+
 module Apollo
   module Controllers
     class AdminPageController < Apollo::Controllers::AdminController

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'apollo/helpers/admin_navigation'
+
 module Apollo
   module Controllers
     class AdminDashboardController < Apollo::Controllers::AdminController

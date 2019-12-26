@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'mongoid'
+
+require 'apollo/models/attachment'
+
 module Apollo
   module Models
 

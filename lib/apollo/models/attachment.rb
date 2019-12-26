@@ -1,4 +1,11 @@
+# frozen_string_literal: true
+
 require 'open-uri'
+require 'mongoid'
+require 'fileutils'
+require 'down/http'
+
+require 'apollo/utils/path'
 
 module Apollo
   module Models
@@ -45,18 +52,18 @@ module Apollo
       protected
 
       def delete_file
-        FileUtils.remove_file path, :force => true
+        ::FileUtils.remove_file path, :force => true
       end
 
       def update_file
         return unless self.changed_attributes.keys.include? "file_url"
 
-        case URI.parse(self.file_url).scheme
+        case ::URI.parse(self.file_url).scheme
 
         when "http"
-          io = Down::Http.open(file_url)
+          io = ::Down::Http.open(file_url)
         when "https"
-          io = Down::Http.open(file_url)
+          io = ::Down::Http.open(file_url)
         when "file"
           io = open(file_url.sub(%r{^file://}, ''))
         else

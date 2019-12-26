@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'apollo/core/addon_manager'
+
 module Apollo
   module Helpers
     module AdminNavigation
