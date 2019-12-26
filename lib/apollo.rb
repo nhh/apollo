@@ -43,4 +43,7 @@ require 'apollo/controllers/admin_post_controller'
 require 'apollo/controllers/admin_settings_controller'
 require 'apollo/controllers/admin_user_controller'
 
+# Version
+require 'apollo/version'
+
 module Apollo; end
