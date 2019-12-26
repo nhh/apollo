@@ -22,26 +22,6 @@ module Apollo
         configuration.dig(*key.split("."))
       end
 
-      # Saves the configuration with a key and value to the configuration file
-      #
-      #   configuration = Apollo::Core::Configuration.new
-      #   configuration.set("apollo.security.allow_unsigned_gems", false)
-      #   configuration.get("apollo.security.allow_unsigned_gems") # returns true
-      #
-      # Please note, that setting a configuration does NOT set an environment variable
-      # @return boolean
-      def set(key, value)
-        configuration = YAML.load(File.read(@config_path))
-        keys = key.split(".")
-        # reverse inject turns around the array and adds the value as last item
-        # after that we are returning a hash with "out zipping" itself
-        configuration = configuration.deep_merge(keys.reverse.inject(value) { |a, n| { n => a } })
-        File.write(@config_path, configuration.to_yaml)
-        true
-      rescue StandardError => e
-        false
-      end
-
     end
   end
 end
