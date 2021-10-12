@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'http'
   s.add_dependency 'i18n'
 
-  s.add_dependency 'puma', '~> 4'
+  s.add_dependency 'puma', '>= 4', '< 6'
   s.add_dependency 'bcrypt'
   s.add_dependency 'mongoid'
   s.add_dependency 'rufus-scheduler'
