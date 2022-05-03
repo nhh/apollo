@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth'
   s.add_dependency 'commander'
   s.add_dependency 'rake'
-  s.add_dependency 'sinatra', '~> 2.0.7'
+  s.add_dependency 'sinatra', '>= 2.0.7', '< 2.3.0'
   s.add_dependency 'sinatra-flash'
   s.add_dependency 'down'
   s.add_dependency 'http'
